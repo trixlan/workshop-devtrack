@@ -34,12 +34,12 @@ oc process openshift//postgresql-ephemeral \
 mvn clean compile package -DskipTests -f inventory-service
 
 # Se confirma el despligue 
-oc rollout status -w dc/inventory
+#oc rollout status -w dc/inventory
 
 # Se agregan los labels 
-oc label dc/inventory app.kubernetes.io/part-of=inventory --overwrite && \
-oc label dc/inventory-database app.kubernetes.io/part-of=inventory app.openshift.io/runtime=postgresql --overwrite && \
-oc annotate dc/inventory app.openshift.io/connects-to=inventory-database --overwrite && \
+oc label dc/inventory app.kubernetes.io/part-of=inventory --overwrite
+oc label dc/inventory-database app.kubernetes.io/part-of=inventory app.openshift.io/runtime=postgresql --overwrite
+oc annotate dc/inventory app.openshift.io/connects-to=inventory-database --overwrite
 oc annotate dc/inventory app.openshift.io/vcs-ref=ocp-4.5 --overwrite
 
 # Desplegamos la app de catalog-service
